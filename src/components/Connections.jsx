@@ -48,7 +48,7 @@ const Connections = () => {
           } = connection;
           return (
             <div
-              className=" carousel-item join join-vertical mx-8 bg-base-300 p-5 rounded-xl"
+              className="carousel-item join join-vertical mx-5 bg-base-300 p-2 rounded-xl"
               key={_id}
             >
               <img
@@ -56,13 +56,13 @@ const Connections = () => {
                 alt={firstName}
                 className="align-center w-60 h-60 object-cover"
               />
-              <div className="mt-5">
+              <div className="card-body join join-vertical text-start">
                 <div>{firstName + " " + lastName}</div>
                 <div>{age + ", " + gender}</div>
                 <div className="flex flex-wrap">
                   {skills.join(", ").toUpperCase()}
                 </div>
-                <div className="flex flex-wrap">{about}</div>
+                <div className="flex flex-wrap w-60">{about}</div>
               </div>
             </div>
           );

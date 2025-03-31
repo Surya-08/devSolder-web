@@ -22,7 +22,7 @@ const Requests = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/request/review/" + status + "/" + _id,
-        { status, _id },
+        {},
         { withCredentials: true }
       );
       dispatch(removeRequest(_id));
@@ -49,11 +49,12 @@ const Requests = () => {
       )}
       <h1 className="my-3 font-bold bg-gradient-to-bl">Requests Received</h1>
       {requests.map((request) => {
-        const { firstName, lastName, photoUrl, about } = request.fromUserId;
+        const { _id, firstName, lastName, photoUrl, about } =
+          request.fromUserId;
         return (
           <div
             className="card mx-auto bg-base-300 w-1/2 flex flex-row"
-            key={request._id}
+            key={_id}
           >
             <div className="card-body flex-row p-2">
               <img

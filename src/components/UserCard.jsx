@@ -31,11 +31,7 @@ const UserCard = ({ userCardData }) => {
         </div>
       )}
       <figure>
-        <img
-          src={photoUrl}
-          alt={firstName}
-          className="rounded-2xl object-cover mt-2 h-80"
-        />
+        <img src={photoUrl} alt={firstName} className="object-cover" />
       </figure>
       <div className="card-body p-5">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
