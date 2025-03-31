@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import UserCard from "./UserCard";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
+import UserCard from "./UserCard";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
-  const [about, setAbout] = useState(user.about);
-  const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [skills, setSkills] = useState(user.skills);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
+  const [about, setAbout] = useState(user.about || "");
+  const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
+  const [skills, setSkills] = useState(user.skills || "");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
@@ -20,15 +20,16 @@ const EditProfile = ({ user }) => {
   const handleUpdate = async () => {
     setError("");
     try {
-      const response = await axios.patch(
+      const response = axios.patch(
         BASE_URL + "/profile/edit",
         { firstName, lastName, age, gender, photoUrl, about, skills },
+
         {
           withCredentials: true,
         }
       );
-      console.log(response, "ress");
-      dispatch(addUser(response?.data.data));
+
+      dispatch(addUser(response?.data));
       setAlert(true);
       setTimeout(() => {
         setAlert(false);
@@ -43,7 +44,7 @@ const EditProfile = ({ user }) => {
       {alert && (
         <div className="toast toast-top toast-start">
           <div className="alert alert-success">
-            <span>Profile has been updated successfully.</span>
+            <span>Profile has been updated successfully</span>
           </div>
         </div>
       )}
@@ -88,13 +89,7 @@ const EditProfile = ({ user }) => {
               value={gender}
               onChange={(e) => setGender(e.target.value)}
             />
-            <label className="fieldset-label text-neutral-300">About</label>
-            <input
-              type="text"
-              className="input text-orange-300"
-              value={about}
-              onChange={(e) => setAbout(e.target.value)}
-            />
+
             <label className="fieldset-label text-neutral-300">Skills</label>
             <input
               type="text"
@@ -111,9 +106,19 @@ const EditProfile = ({ user }) => {
               value={photoUrl}
               onChange={(e) => setPhotoUrl(e.target.value)}
             />
+            <label className="fieldset-label text-neutral-300">About</label>
+            <textarea
+              className="textarea text-orange-300"
+              placeholder="Bio"
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+            />
           </fieldset>
-
-          <div className="text-error">{error}</div>
+          {error && (
+            <div role="alert" className="alert alert-error alert-soft">
+              <span>{error}</span>
+            </div>
+          )}
           <div className="card-actions justify-center">
             <button className="btn btn-primary" onClick={() => handleUpdate()}>
               Update Profile

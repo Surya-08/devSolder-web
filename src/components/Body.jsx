@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import NavBar from "./NavBar";
-import { Outlet, useNavigate } from "react-router-dom";
-import Footer from "./Footer";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
-import Feed from "./Feed";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const Body = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
   const fetchUserDetails = async () => {
     if (user) {
       return;
@@ -28,6 +28,7 @@ const Body = () => {
       throw new Error("ERROR " + err.message);
     }
   };
+
   useEffect(() => {
     fetchUserDetails();
   }, []);
@@ -36,7 +37,7 @@ const Body = () => {
     <div>
       <NavBar />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
