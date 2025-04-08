@@ -101,7 +101,7 @@ const Login = () => {
         <p className="text-error">{error}</p>
         <div className="card-actions flex-col items-center">
           <div
-            className="flex justify-center"
+            className="flex justify-center cursor-pointer"
             onClick={() => setIsLoginUser((value) => !value)}
           >
             {isLoginUser
